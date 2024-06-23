@@ -80,7 +80,7 @@
                         Abstract
                     </h2>
                     <p>
-                   Over the past few years, the bottleneck of bandwidth in IoT has driven new methods to compress the speech to be transmitted. Specifically for satellite voice communications, it is necessary to realize high-quality codecs with a coderate of less than 1 kbps under Beidou-3 channel whose rate is often less than 1 kbps. MELPE vocoders typically compress narrowband speech to 2.4kbps, 1.2kbps, and 0.6kbps, but its MUSHRA scores at all code rates are not good enough. Neural network vocoders have become a very hot concept in the AI community, which aims to provide high-fidelity audio compression. In this paper, we present for the first time an end-to-end vocoder-based audio compression and transmission system that can be flexibly utilized in IoT scenarios. The system includes four components: encoder, joint vector quantizer, decoder, and LoRA transmitter and receiver devices. To use the lowest code rate of 0.52kbps in satellite voice communication, we propose the joint vector quantization technique significantly improving the quality of the decoded audio at this code rate. This technique is able to reduce the bitrate by 50% and keeps the quality of the decoded audio unchanged Experimental results show that our voice transmission system is able to provide high quality decoded audio at 0.50kbps and 0.99kbps with Voice Activation Detection. The MUSHRA score of our vocoder at 0.50kbps outperforms Encodec at 1.5kbps, and our vocoder at 0.99kbps outperforms Encodec at 3.00kbps and Lyra-v2 at 3.2kbps. Our system also provides a new idea and solution for satellite voice communication.
+                   Over the past few years, the bottleneck of bandwidth in IoT has driven new methods to compress the speech to be transmitted. For satellite voice communications, it is necessary to realize high-quality codecs with a code rate of less than 1 kbps under Beidou-3 channel whose rate is often less than 1 kbps. MELPE vocoders typically compress narrowband speech to 2.4kbps, 1.2kbps, and 0.6kbps, but its MUSHRA scores at all code rates are not good enough. Neural network vocoders have become a very hot concept in the AI community, which aims to provide high-fidelity audio compression. In this paper, we propose LMCodec2 which is a partly causal speech codec that can work on all the bitrates and can provides high quality audio at low bitrates for satellite voice transmission. LMCodec2 trains a Transformer language model to predict the coarse tokens and fine tokens from coarse tokens. This technique reduces the bitrate by 15\% and keeps the quality of the decoded audio unchanged. Experimental results show that LMCodec2 provide high quality decoded audio at 0.87kbps, 1.29kbps. The MUSHRA score of LMCodec2 at 0.87kbps outperforms Encodec at 1.5kbps, and our vocoder at 1.29kbps outperforms Encodec at 3.00kbps and Lyra-v2 at 3.2kbps. We also find the joint vector quantization technique improving the quality of the decoded audio at 0.50kbps. Demo audio link is at https://dingweipeng.github.io/JACK.github.io. Our codec provides a new idea and solution for satellite voice communication.
 					</p>
                 </div>
 				
@@ -89,9 +89,8 @@
                         Tips
                     </h2>
                     <p>
-                    We demonstrate decoded speech with and without joint vector quantization for its effectiveness in improving decoded speech quality at ultra-low bitrate 0.50kbps. There is a slight difference in the values of two bitrates due to Voice Activation Detection (VAD).
-
-                    We also show the original decoded speech at 1.88kbps and the corresponding decoded speech at 0.99kbps with joint vector quantization.
+                    We demonstrate decoded speech with Transformer predictor for its effectiveness in improving decoded speech quality at ultra-low bitrate 0.87kbps.
+                    We also show the decoded speech at 0.50kbps with joint vector quantization.
 
                     </p>
                 </div>
@@ -142,7 +141,8 @@
                         <thead>
                             <tr>
                                 <th scope="col">Target</th>
-                                <th scope="col">JVCodec(Under VAD)</th>
+                                <th scope="col">SoundStream</th>
+                                <th scope="col">LMCodec2&JVCodec</th>
 								<th scope="col">Encodec&Opus</th>
 								<th scope="col">Lyra-v2</th>							
                             </tr>
@@ -156,23 +156,35 @@
                                     </audio>
                                 </td>
                                 <td>
-									JVCodec-0.50kbps
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_24_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_24_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_24_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_24_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_24_2_lmcodec_1.29kbps.wav">
+                                    </audio>
+                                    JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_24_3_jvq_vad.wav">
                                     </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_24_1_nojvq.wav">
-                                    </audio>
-									JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_24_7_jvq_vad.wav">
-                                    </audio>
-									JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_24_7_nojvq_vad.wav">
-                                    </audio>
                                 </td>
+
 								<td>
 									Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
@@ -213,24 +225,37 @@
                                         <source src="data/Target\libritts\y_g_hat_98.wav">
                                     </audio>
                                 </td>
+
                                 <td>
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_98_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_98_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_98_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_98_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_98_2_lmcodec_1.29kbps.wav">
+                                    </audio>
                                     JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_98_3_jvq_vad.wav">
                                     </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_98_1_nojvq.wav">
-                                    </audio>
-                                    JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_98_7_jvq_vad.wav">
-                                    </audio>
-                                    JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_98_7_nojvq_vad.wav">
-                                    </audio>
                                 </td>
+
                                 <td>
                                     Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
@@ -271,24 +296,37 @@
                                         <source src="data/Target\libritts\y_g_hat_100.wav">
                                     </audio>
                                 </td>
+
                                 <td>
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_100_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_100_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_100_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_100_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_100_2_lmcodec_1.29kbps.wav">
+                                    </audio>
                                     JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_100_3_jvq_vad.wav">
                                     </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_100_1_nojvq.wav">
-                                    </audio>
-                                    JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_100_7_jvq_vad.wav">
-                                    </audio>
-                                    JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_100_7_nojvq_vad.wav">
-                                    </audio>
                                 </td>
+
                                 <td>
                                     Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
@@ -331,23 +369,35 @@
                                     </audio>
                                 </td>
                                 <td>
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_106_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_106_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_106_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_106_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_106_2_lmcodec_1.29kbps.wav">
+                                    </audio>
                                     JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_106_3_jvq_vad.wav">
                                     </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_106_1_nojvq.wav">
-                                    </audio>
-                                    JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_106_7_jvq_vad.wav">
-                                    </audio>
-                                    JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_106_7_nojvq_vad.wav">
-                                    </audio>
                                 </td>
+
                                 <td>
                                     Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
@@ -388,24 +438,37 @@
                                         <source src="data/Target\libritts\y_g_hat_113.wav">
                                     </audio>
                                 </td>
+
                                 <td>
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_113_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_113_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_113_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_113_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_113_2_lmcodec_1.29kbps.wav">
+                                    </audio>
                                     JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_113_3_jvq_vad.wav">
                                     </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_113_1_nojvq.wav">
-                                    </audio>
-                                    JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_113_7_jvq_vad.wav">
-                                    </audio>
-                                    JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_113_7_nojvq_vad.wav">
-                                    </audio>
                                 </td>
+
                                 <td>
                                     Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
@@ -447,24 +510,37 @@
                                         <source src="data/Target\libritts\y_g_hat_115.wav">
                                     </audio>
                                 </td>
+
                                 <td>
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_115_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_115_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_115_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_115_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_115_2_lmcodec_1.29kbps.wav">
+                                    </audio>
                                     JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_115_3_jvq_vad.wav">
                                     </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_115_1_nojvq.wav">
-                                    </audio>
-                                    JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_115_7_jvq_vad.wav">
-                                    </audio>
-                                    JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_115_7_nojvq_vad.wav">
-                                    </audio>
                                 </td>
+
                                 <td>
                                     Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
@@ -505,24 +581,37 @@
                                         <source src="data/Target\libritts\y_g_hat_119.wav">
                                     </audio>
                                 </td>
+                                
                                 <td>
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_119_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_119_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_119_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_119_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_119_2_lmcodec_1.29kbps.wav">
+                                    </audio>
                                     JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_119_3_jvq_vad.wav">
                                     </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_119_1_nojvq.wav">
-                                    </audio>
-                                    JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_119_7_jvq_vad.wav">
-                                    </audio>
-                                    JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_119_7_nojvq_vad.wav">
-                                    </audio>
                                 </td>
+
                                 <td>
                                     Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
@@ -564,24 +653,37 @@
                                         <source src="data/Target\libritts\y_g_hat_129.wav">
                                     </audio>
                                 </td>
+
                                 <td>
+                                    SoundStream-0.50kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-0.50kbps\libritts\y_g_hat_129_0_soundstream_0.50kbps.wav">
+                                    </audio> 
+                                    SoundStream-1.00kbps
+                                    <audio controls preload="none">
+                                        <source src="data/SoundStream-1.00kbps\libritts\y_g_hat_129_1_soundstream_1.00kbps.wav">
+                                    </audio>
+                                </td>
+
+                                <td>
+                                    LMCodec2-0.44kbps
+                                    <audio controls preload="none">
+                                        <source src="data/LMCodec2-0.44kbps\libritts\y_g_hat_129_0_lmcodec_0.44kbps.wav">
+                                    </audio> 
+                                    LMCodec2-0.87kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-0.87kbps\libirtts\y_g_hat_129_1_lmcodec_0.87kbps.wav">
+                                    </audio>
+                                    LMCodec2-1.29kbps
+                                    <audio controls preload="none">
+                                        <source src="data\LMCodec2-1.29kbps\libritts\y_g_hat_129_2_lmcodec_1.29kbps.wav">
+                                    </audio>
                                     JVCodec-0.50kbps
                                     <audio controls preload="none">
                                         <source src="data/JVCodec-0.50kbps\libritts\y_g_hat_129_3_jvq_vad.wav">
-                                    </audio> 
-                                    JVCodec-0.51kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.52kbps\libritts\y_g_hat_129_1_nojvq.wav">
-                                    </audio>
-                                    JVCodec-0.99kbps
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-0.99kbps\libritts\y_g_hat_129_7_jvq_vad.wav">
-                                    </audio>
-                                    JVCodec-1.88kbps(w/o joint vector quantization)
-                                    <audio controls preload="none">
-                                        <source src="data/JVCodec-1.88kbps\libritts\y_g_hat_129_7_nojvq_vad.wav">
                                     </audio>
                                 </td>
+
                                 <td>
                                     Encodec-1.5kbps(pretrained)
                                     <audio controls preload="none">
