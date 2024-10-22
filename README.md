@@ -1,5 +1,3 @@
-This is the FormerCodec's demo speech.
+This is the Demo page of FormerCodec: FormerCodec: Ultra-low Bit Rate Codec with Transformer for Satellite Voice Transmission.
 
-We have collected 14 Chinese audio recordings from 9 speakers in real-world scenarios. We expect to upload the actual decoded audio to this webpage by September 30, 2024. 
-
-If you need the original data, please send an email to jackdawsonabc@163.com for inquiries. Thank you!
+The paper "Lmcodec2: Ultra-Low Bit Rate Codec with Transformer for Satellite Voice Transmission" is an unmodified version of FormerCodec. You can access the detailed content of the paper through the following link: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4915275. If you need more information or assistance, please send an email to jackdawsonabc@163.com

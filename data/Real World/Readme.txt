@@ -1,0 +1,3 @@
+We collected 14 audio recordings from 9 speakers using an Android phone's voice recorder in real-world scenarios, including locations such as restaurants, offices, dormitories, and outdoors. The file labeled "source_audio" represents the original audio after removing white noise, while "FormerCodec_0.76kbps" refers to the 0.76 kbps encoding. 
+
+You can find the decoded audio for both 0.76 kbps and 1.15 kbps by checking the audio file names in "source_audio".
