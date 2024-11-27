@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="OlaWod">
 
-    <title>FormerCodec Demo Page</title>
+    <title>LMCodec2 Demo Page</title>
     <!-- Bootstrap core CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -78,7 +78,7 @@
                         Abstract
                     </h2>
                     <p>
-                        Over the past few years, the bandwidth bottleneck in satellite Internet of Things (IoT) has driven the development of new methods to compress transmitted speech. For satellite voice communications, it is crucial to achieve high-quality codecs with a code rate below 1 kbps, compatible with channels like Beidou-3 that often operate at less than 1 kbps. Neural network vocoders have emerged as a promising approach in the AI community, aiming to provide high-fidelity audio compression. In this paper, we propose FormerCodec, a causal speech codec capable of operating across various bit rates while delivering high-quality audio at low bit rates for satellite voice transmission. FormerCodec employs a Transformer language model to predict tokens, reducing the bit rate by 25\% while maintaining decoded audio quality. Our experimental results demonstrate that FormerCodec provides high-quality decoded audio at 0.76 kbps and 1.15 kbps. Notably, the MUSHRA (MUlti Stimulus test with Hidden Reference and Anchor) score of FormerCodec at 0.76 kbps surpasses that of Encodec at 1.5 kbps. Demo audio, including self-recorded speeches, is available at https://dingweipeng.github.io/JACK.github.io. FormerCodec offers a novel approach and solution for satellite voice communication with limited bandwidth.					</p>
+                        In recent years, the bandwidth constraints in satellite Internet of Things (IoT) applications have spurred the development of novel methods for compressing transmitted speech. For satellite voice communications, it is essential to achieve high-quality codecs with a bit rate below 1 kbps, particularly for channels such as Beidou-3, which often operate under such limitations. Neural network-based vocoders have emerged as a promising solution within the AI community, offering high-fidelity audio compression. In this paper, we propose LMCodec2, a causal speech codec designed to operate across a range of bit rates while delivering high-quality audio at extremely low bit rates, specifically tailored for satellite voice transmission. LMCodec2 utilizes a Transformer-based language model to predict tokens frame by frame, achieving a 25% reduction in bit rate without compromising decoded audio quality. Our experimental evaluations demonstrate that LMCodec2 produces high-quality decoded audio at 0.76 kbps and 1.15 kbps. Notably, at 0.76 kbps, LMCodec2 achieves a MUSHRA (Multi-Stimulus Test with Hidden Reference and Anchor) score that surpasses Encodec’s performance at 1.5 kbps. Audio demonstrations, including real-world self-recorded speech datasets, are available at https://dingweipeng.github.io/JACK.github.io. LMCodec2 provides a new way of thinking to addressing the challenges of bandwidth-limited satellite voice communications.					</p>
                 </div>
 				
                 <div class="post-preview" id="Tips">
